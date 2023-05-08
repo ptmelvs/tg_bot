@@ -63,42 +63,45 @@ def check_callback(call):
     global src
     src = 'ru'
     dest = 'ru'
-    if call.data == 'butt_idE':
-        bot.send_message(call.message.chat.id,
-                         'Вы выбрали английский язык, введите слово или предложение на английском, которые вы хотите перевести')
-        src = 'en'
-    elif call.data == 'butt_idK':
-        bot.send_message(call.message.chat.id,
-                         'Вы выбрали корейский язык, введите слово или предложение на корейском, которые вы хотите перевести')
-        src = 'ko'
-    elif call.data == 'butt_idZC':
-        bot.send_message(call.message.chat.id,
-                         'Вы выбрали китайский язык, введите слово или предложение на китайском, которые вы хотите перевести')
-        src = 'zh-cn'
-    elif call.data == 'butt_idF':
-        bot.send_message(call.message.chat.id,
-                         'Вы выбрали французский язык, введите слово или предложение на французском, которые вы хотите перевести')
-        src = 'fr'
-    elif call.data == 'butt_idD':
-        bot.send_message(call.message.chat.id,
-                         'Вы выбрали немецкий язык, введите слово или предложение на немецком, которые вы хотите перевести')
-        src = 'de'
+    try:
+        if call.data == 'butt_idE':
+            bot.send_message(call.message.chat.id,
+                             'Вы выбрали английский язык, введите слово или предложение на английском, которые вы хотите перевести')
+            src = 'en'
+        elif call.data == 'butt_idK':
+            bot.send_message(call.message.chat.id,
+                             'Вы выбрали корейский язык, введите слово или предложение на корейском, которые вы хотите перевести')
+            src = 'ko'
+        elif call.data == 'butt_idZC':
+            bot.send_message(call.message.chat.id,
+                             'Вы выбрали китайский язык, введите слово или предложение на китайском, которые вы хотите перевести')
+            src = 'zh-cn'
+        elif call.data == 'butt_idF':
+            bot.send_message(call.message.chat.id,
+                             'Вы выбрали французский язык, введите слово или предложение на французском, которые вы хотите перевести')
+            src = 'fr'
+        elif call.data == 'butt_idD':
+            bot.send_message(call.message.chat.id,
+                             'Вы выбрали немецкий язык, введите слово или предложение на немецком, которые вы хотите перевести')
+            src = 'de'
 
-    elif call.data == 'butt_idEn':
-        bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на английский')
-        dest = 'en'
-    elif call.data == 'butt_idKo':
-        bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на корейский')
-        dest = 'ko'
-    elif call.data == 'butt_idZCh':
-        bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на китайский')
-        dest = 'zh-cn'
-    elif call.data == 'butt_idFr':
-        bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на французский')
-        dest = 'fr'
-    elif call.data == 'butt_idDe':
-        bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на немецкий')
-
+        elif call.data == 'butt_idEn':
+            bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на английский')
+            dest = 'en'
+        elif call.data == 'butt_idKo':
+            bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на корейский')
+            dest = 'ko'
+        elif call.data == 'butt_idZCh':
+            bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на китайский')
+            dest = 'zh-cn'
+        elif call.data == 'butt_idFr':
+            bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на французский')
+            dest = 'fr'
+        elif call.data == 'butt_idDe':
+            bot.send_message(call.message.chat.id, 'Введите сообщение на русском для перевода на немецкий')
+            dest = 'de'
+    except:
+        bot.send_message(call.message.chat.id, 'Возникла непредвиденная ошибка')
 
 @bot.message_handler(func=lambda m: True)
 def translate_message(message):
