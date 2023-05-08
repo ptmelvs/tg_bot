@@ -5,7 +5,7 @@ from telebot.types import Message, CallbackQuery
 from googletrans import Translator
 
 translator = Translator()
-list_of_langs = list(googletrans.LANGUAGES)
+
 avl_langs = ['EN🇬🇧', 'KO🇰🇷', 'ZH-CN🇨🇳', 'FR🇲🇫', 'DE🇩🇪']
 
 
