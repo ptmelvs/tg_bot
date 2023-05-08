@@ -10,7 +10,7 @@ avl_langs = ['EN🇬🇧', 'KO🇰🇷', 'ZH-CN🇨🇳', 'FR🇲🇫', 'DE🇩�
 
 
 def read_token() -> str:
-    with open('C:\\Users\\ch991\\PycharmProjects\\tg_bot\\venv\\token.txt', ) as file:
+    with open('token.txt', ) as file:
         token = file.read().removesuffix('\n')
         return token
 
@@ -26,7 +26,7 @@ def help_command(message: Message):
     src = 'ru'
     dest = 'ru'
     bot.send_message(message.chat.id, 'Доступные команды бота:\n/tolangs - Перевод с выбранного языка на '
-                                      'русский\n/ru_to_oth - Перевод русского сообщения на выбранный язык')
+                                      'русский\n/ru_oth - Перевод русского сообщения на выбранный язык')
 
 
 @bot.message_handler(commands=['tolangs'])
@@ -43,7 +43,7 @@ def av_langs(message):
     bot.send_message(message.chat.id, 'Доступные языки для перевода:', reply_markup=markup)
 
 
-@bot.message_handler(commands=['ru_to_oth'])
+@bot.message_handler(commands=['ru_oth'])
 def ru_to_other(message):
     markup_ru = types.InlineKeyboardMarkup()
     buttonE = types.InlineKeyboardButton(text=avl_langs[0], callback_data='butt_idEn')
@@ -54,11 +54,11 @@ def ru_to_other(message):
 
     markup_ru.add(buttonE, buttonK, buttonZC, buttonF, buttonD)
 
-    bot.send_message(message.chat.id, 'Доступные языки для перевода на другие языки:', reply_markup=markup_ru)
+    bot.send_message(message.chat.id, 'Доступные языки для перевода:', reply_markup=markup_ru)
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def check_callback(call):
+def check_callback(call: CallbackQuery):
     global dest
     global src
     src = 'ru'
