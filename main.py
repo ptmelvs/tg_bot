@@ -17,6 +17,8 @@ def read_token() -> str:
 
 API_TOKEN = read_token()
 bot = telebot.TeleBot(API_TOKEN)
+
+
 @bot.message_handler(commands=['start'])
 def start_bot(message: Message):
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
@@ -24,6 +26,8 @@ def start_bot(message: Message):
     markup.add(btn1, row_width=1)
     bot.send_message(message.chat.id, 'Добро пожаловать в чат с ботом - переводчиком, введите /help для получения '
                                       'доступных команд', reply_markup=markup)
+
+
 @bot.message_handler(commands=['help'])
 def help_command(message: Message):
     global src
