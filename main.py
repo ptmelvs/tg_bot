@@ -10,15 +10,20 @@ avl_langs = ['EN🇬🇧', 'KO🇰🇷', 'ZH-CN🇨🇳', 'FR🇲🇫', 'DE🇩�
 
 
 def read_token() -> str:
-    with open('token.txt', ) as file:
+    with open('token.txt') as file:
         token = file.read().removesuffix('\n')
         return token
 
 
 API_TOKEN = read_token()
 bot = telebot.TeleBot(API_TOKEN)
-
-
+@bot.message_handler(commands=['start'])
+def start_bot(message: Message):
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+    btn1 = types.InlineKeyboardButton(text='/start')
+    markup.add(btn1, row_width=1)
+    bot.send_message(message.chat.id, 'Добро пожаловать в чат с ботом - переводчиком, введите /help для получения '
+                                      'доступных команд', reply_markup=markup)
 @bot.message_handler(commands=['help'])
 def help_command(message: Message):
     global src
@@ -102,6 +107,7 @@ def check_callback(call: CallbackQuery):
             dest = 'de'
     except:
         bot.send_message(call.message.chat.id, 'Возникла непредвиденная ошибка')
+
 
 @bot.message_handler(func=lambda m: True)
 def translate_message(message):
