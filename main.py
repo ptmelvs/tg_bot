@@ -1,4 +1,6 @@
-import googletrans
+from pyowm import OWM
+from pyowm.utils import config, timestamps
+from pyowm.utils.config import get_default_config
 import telebot
 from telebot import types
 from telebot.types import Message, CallbackQuery
@@ -7,6 +9,22 @@ from googletrans import Translator
 translator = Translator()
 
 avl_langs = ['EN🇬🇧', 'KO🇰🇷', 'ZH-CN🇨🇳', 'FR🇲🇫', 'DE🇩🇪']
+
+config_dict = get_default_config()
+config_dict['language'] = 'ru'
+city = 'Томск'
+country = 'Россия'
+place = city + ', ' + country
+
+owm = OWM('d88fe66310f8322d037d3950bf1efd2d')
+mgr = owm.weather_manager()
+observation = mgr.weather_at_place(place)
+w = observation.weather
+
+status = w.detailed_status
+w.wind()
+humidity = w.humidity
+temp = w.temperature('celsius')['temp']
 
 
 def read_token() -> str:
@@ -35,7 +53,15 @@ def help_command(message: Message):
     src = 'ru'
     dest = 'ru'
     bot.send_message(message.chat.id, 'Доступные команды бота:\n/tolangs - Перевод с выбранного языка на '
-                                      'русский\n/ru_oth - Перевод русского сообщения на выбранный язык')
+                                      'русский\n/ru_oth - Перевод русского сообщения на выбранный язык\n/weather - '
+                                      'получение полной информации о погоде в Томске')
+
+
+@bot.message_handler(commands=['weather'])
+def get_weather(message):
+    bot.send_message(message.chat.id, f'В городе {str(city)} сейчас {str(status)}.\n'
+                                      f'Температура - {str(round(temp))} градусов по цельсию.\nВлажность - {str(humidity)}%.\n'
+                                      f'Скорость ветра - ' + str(w.wind()['speed']) + ' метров в секунду.')
 
 
 @bot.message_handler(commands=['tolangs'])
