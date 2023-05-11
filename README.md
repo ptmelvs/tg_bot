@@ -1,4 +1,4 @@
-This is translater bot created by using googletrans and pyTelegramBotAPI
+This is translator bot created by using googletrans and pyTelegramBotAPI
 
 
 Download all requirements using pip install -r requirements.txt.
